@@ -1,0 +1,770 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --black: rgb(17, 17, 17);
+    --white: #ffffff;
+    --off-white: rgb(249, 250, 251);
+    --accent: #ff2d55;
+    --background: var(--black);
+    --text: var(--white);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+    overflow-x: hidden;
+    cursor: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-sm);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    margin-bottom: var(--spacing-lg);
+}
+
+.name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-md);
+}
+
+nav a {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--text);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.tagline {
+    font-size: 8vw;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: var(--spacing-md);
+}
+
+.intro {
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+}
+
+/* Works Section */
+.works {
+    margin-bottom: var(--spacing-xl);
+}
+
+.works h2 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+    text-transform: uppercase;
+}
+
+/* Category Navigation */
+.category-nav {
+    margin-bottom: var(--spacing-md);
+}
+
+.category-nav ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-md);
+}
+
+.category-nav li {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    position: relative;
+    padding-bottom: 0.5rem;
+    transition: color 0.3s ease;
+    color: var(--text);
+    opacity: 0.5;
+}
+
+.category-nav li:hover {
+    opacity: 0.8;
+}
+
+.category-nav li.active {
+    opacity: 1;
+}
+
+.category-nav li.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
+}
+
+/* Category Container */
+.category-container {
+    position: relative;
+    width: 100%;
+}
+
+.gallery-category {
+    display: none;
+    width: 100%;
+}
+
+.gallery-category.active {
+    display: block;
+}
+
+.gallery-scroll {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    height: 65vh; /* Increase container height */
+    align-items: center;
+}
+
+.gallery-scroll::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.gallery-item {
+    flex: 0 0 auto;
+    margin-bottom: 0;
+    opacity: 0;
+    margin-right: var(--spacing-sm);
+    height: 65vh; /* Match the container height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to top */
+}
+
+.gallery-item.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.gallery-item img {
+    width: auto;
+    height: 50vh; /* Reduce image height to leave room for text */
+    object-fit: cover;
+    margin-bottom: var(--spacing-sm);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.02);
+}
+
+.gallery-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.gallery-item p {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 1.5rem;
+    color: var(--accent);
+    animation: pulseRight 1.5s infinite;
+}
+
+@keyframes pulseRight {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* About Section */
+.about {
+    margin-bottom: var(--spacing-xl);
+}
+
+.about h2 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+}
+
+.about-text p {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    max-width: 800px;
+}
+
+/* Contact Section */
+.contact {
+    margin-bottom: var(--spacing-xl);
+}
+
+.contact h2 {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+}
+
+.email {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+}
+
+.social-links {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.social-link {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Footer */
+footer {
+    padding: var(--spacing-md) 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cursor Follower */
+.cursor-follower {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    z-index: 100000;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.cursor-follower.link-hover {
+    width: 40px;
+    height: 40px;
+    background-color: var(--white);
+}
+
+/* Prevent default cursor on interactive elements */
+a, button, .category-nav li, [role="button"] {
+    cursor: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+    
+    nav ul {
+        gap: var(--spacing-sm);
+    }
+    
+    .tagline {
+        font-size: 3.5rem;
+    }
+    
+    .intro {
+        font-size: 1.5rem;
+    }
+    
+    .about-text p {
+        font-size: 1.25rem;
+    }
+    
+    .email {
+        font-size: 1.5rem;
+    }
+    
+    body {
+        cursor: auto;
+    }
+    
+    .cursor-follower {
+        display: none;
+    }
+    
+    .category-nav ul {
+        gap: var(--spacing-sm);
+        flex-wrap: wrap;
+    }
+    
+    .category-nav li {
+        font-size: 1rem;
+    }
+    
+    .gallery-item {
+        width: 280px;
+    }
+    
+    a, button, .category-nav li, [role="button"] {
+        cursor: auto;
+    }
+}
+
+/* Staggered animation delay for gallery items */
+.gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.gallery-item:nth-child(3) { animation-delay: 0.3s; }
+.gallery-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* View Toggle */
+.view-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-left: auto;
+    margin-bottom: var(--spacing-md);
+}
+
+.view-toggle span {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+}
+
+/* Toggle buttons - shared styles for both view toggle and theme toggle */
+.toggle-btn, 
+.theme-toggle .toggle-btn {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    background-color: rgba(127, 127, 127, 0.2);
+    border-radius: 12px;
+    cursor: none;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-btn::before, 
+.theme-toggle .toggle-btn::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--text);
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Grid toggle active state */
+.toggle-btn.grid-active {
+    background-color: rgba(255, 45, 85, 0.3);
+}
+
+.toggle-btn.grid-active::before {
+    transform: translateX(26px);
+    background-color: var(--accent);
+}
+
+/* Theme toggle active state (light mode) */
+body.light-mode .theme-toggle .toggle-btn::before {
+    transform: translateX(26px);
+}
+
+/* Toggle labels */
+.view-toggle span,
+.theme-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+}
+
+/* Grid Gallery View */
+.gallery-category.grid-view .gallery-scroll {
+    display: block;
+    column-count: 3;
+    column-gap: var(--spacing-md);
+    overflow-x: visible;
+    height: auto;
+    padding-bottom: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+}
+
+/* Create card-like items with consistent spacing */
+.gallery-category.grid-view .gallery-item {
+    display: block;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+    padding: 0; /* Remove padding */
+    background-color: transparent; /* Remove background */
+    border-radius: 0; /* Remove border radius */
+    overflow: hidden;
+    height: auto;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.gallery-category.grid-view .gallery-item:hover {
+    transform: none; /* Remove the lift effect */
+    background-color: transparent; /* Remove hover background */
+}
+
+/* Make grid view images scale on hover like in scroll view */
+.gallery-category.grid-view .gallery-item:hover img {
+    transform: scale(1.02); /* Match the scroll view image hover effect */
+}
+
+/* Ensure the content inside each gallery item has fixed spacing */
+.gallery-category.grid-view .gallery-item-content {
+    display: block;
+    width: 100%;
+}
+
+/* Reset spacing for images in grid view */
+.gallery-category.grid-view .gallery-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Force consistent text layout */
+.gallery-category.grid-view .gallery-item h3 {
+    font-size: 1.5rem;
+    margin-top: var(--spacing-sm);
+    margin-bottom: 0.25rem;
+    width: 100%;
+}
+
+.gallery-category.grid-view .gallery-item p {
+    font-size: 1rem;
+    opacity: 0.7;
+    width: 100%;
+    margin-top: 0;
+}
+
+/* Adjust for smaller screens */
+@media (max-width: 992px) {
+    .gallery-category.grid-view .gallery-scroll {
+        column-count: 2; /* Reduce to 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-category.grid-view .gallery-scroll {
+        column-count: 1; /* Single column on very small screens */
+    }
+}
+
+/* Gallery tools bar */
+.gallery-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.gallery-tools .category-nav {
+    margin-bottom: 0;
+}
+
+/* Fullscreen Image View */
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: var(--spacing-md);
+}
+
+.fullscreen-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.fullscreen-image {
+    max-width: 90%;
+    max-height: 75vh; /* Reduced to leave room for caption */
+    object-fit: contain;
+    margin-bottom: var(--spacing-sm); /* Reduced from spacing-md to spacing-sm */
+}
+
+.close-fullscreen {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--white);
+    cursor: none;
+    z-index: 10001; /* Ensure it's above everything */
+}
+
+.fullscreen-caption {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    padding: 0; /* Removed padding */
+    margin-top: 0; /* Remove auto margin */
+}
+
+.fullscreen-caption h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.fullscreen-caption p {
+    opacity: 0.7;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .gallery-tools {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+    }
+    
+    .view-toggle {
+        margin-left: 0;
+    }
+    
+    .gallery-category.grid-view .gallery-scroll {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .toggle-btn {
+        cursor: auto;
+    }
+}
+
+/* Make sure gallery items don't cause vertical overflow in scroll view */
+.gallery-category:not(.grid-view) .gallery-item {
+    max-height: 65vh; /* Match the new container height */
+    overflow: visible; /* Allow text to be visible */
+}
+
+/* Hide scroll indicator in grid view */
+.gallery-category.grid-view .scroll-indicator {
+    display: none;
+}
+
+/* Light theme variables */
+body.light-mode {
+    --background: rgb(249, 250, 251);
+    --text: var(--black);
+    --text-secondary: rgba(17, 17, 17, 0.7);
+}
+
+/* Theme Toggle Styles */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-left: var(--spacing-md);
+}
+
+/* Theme labels - adjust size to match view toggle */
+.theme-label {
+    font-size: 1rem; /* Changed from 0.8rem to match view toggle */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    transition: opacity 0.3s ease;
+}
+
+/* Theme toggle active state styling */
+body.light-mode .theme-toggle .toggle-btn {
+    background-color: rgba(255, 45, 85, 0.3); /* Match grid toggle active background */
+}
+
+body.light-mode .theme-toggle .toggle-btn::before {
+    transform: translateX(26px);
+    background-color: var(--accent);
+}
+
+/* Light mode adjustments for various elements */
+.intro {
+    color: var(--accent);
+}
+
+.category-nav li {
+    color: var(--text);
+}
+
+.gallery-item p, 
+.fullscreen-caption p {
+    opacity: 0.7;
+    color: var(--text-secondary);
+}
+
+/* Light mode adjustments for fullscreen overlay */
+.fullscreen-overlay {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+body.light-mode .fullscreen-overlay {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+body.light-mode .close-fullscreen,
+body.light-mode .fullscreen-caption h3,
+body.light-mode .fullscreen-caption p {
+    color: var(--black);
+}
+
+/* Responsive Styles for theme toggle */
+@media (max-width: 768px) {
+    header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .name {
+        flex: 1 0 100%;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    nav {
+        order: 1;
+    }
+    
+    .theme-toggle {
+        order: 2;
+        margin-left: 0;
+    }
+}
+
+/* Toggle button transforms */
+.toggle-btn.grid-active::before,
+body.light-mode .theme-toggle .toggle-btn::before {
+    transform: translateX(26px);
+}
+
+.toggle-btn.grid-active::before {
+    background-color: var(--accent);
+}
+
+/* Theme labels opacity for active/inactive state */
+body:not(.light-mode) .theme-label:first-child,
+body.light-mode .theme-label:last-child {
+    opacity: 1;
+}
+
+body.light-mode .theme-label:first-child,
+body:not(.light-mode) .theme-label:last-child {
+    opacity: 0.5;
+} 

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Ziyi Zhu</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicons/favicon.ico" sizes="any">
+    <link rel="icon" href="favicons/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png">
+    <link rel="manifest" href="favicons/site.webmanifest">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="name"><a href="https://ziyizhu.com">ZIYI ZHU</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="#works">WORKS</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <span class="theme-label">DARK</span>
+                <div class="toggle-btn" id="themeToggle"></div>
+                <span class="theme-label">LIGHT</span>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h2 class="tagline">CREATIVE PORTFOLIO</h2>
+            <p class="intro">ART / PHOTOGRAPHY / DESIGN</p>
+        </section>
+
+        <section id="works" class="works">
+            <h2>SELECTED WORKS</h2>
+            
+            <div class="gallery-tools">
+                <div class="category-nav">
+                    <ul id="category-nav-list">
+                        <!-- Category navigation will be dynamically generated -->
+                    </ul>
+                </div>
+                
+                <div class="view-toggle">
+                    <span>SCROLL</span>
+                    <div class="toggle-btn" id="viewToggle"></div>
+                    <span>GRID</span>
+                </div>
+            </div>
+            
+            <div class="category-container">
+                <!-- Gallery content will be dynamically generated -->
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2>ABOUT</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Ziyi Zhu is a multidisciplinary artist focused on exploring the intersection of traditional and digital media. Through photography, design, and mixed media works, Ziyi creates visual narratives that challenge conventional perspectives.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>CONTACT</h2>
+            <p class="email">zhu.ziyi@outlook.com</p>
+            <div class="social-links">
+                <a href="https://www.youtube.com/@neoziyism" class="social-link">YOUTUBE</a>
+                <a href="https://unsplash.com/@ziyizhu" class="social-link">UNSPLASH</a>
+                <a href="https://www.linkedin.com/in/ziyizhu/" class="social-link">LINKEDIN</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Ziyi Zhu. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Fullscreen Image Viewer -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <div class="close-fullscreen" id="closeFullscreen">×</div>
+        <img src="" alt="" class="fullscreen-image" id="fullscreenImage">
+        <div class="fullscreen-caption">
+            <h3 id="fullscreenTitle"></h3>
+            <p id="fullscreenDescription"></p>
+        </div>
+    </div>
+
+    <script src="js/artworks.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
