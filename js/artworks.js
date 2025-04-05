@@ -37,7 +37,7 @@ const artworksData = [
     },
     {
         id: 6,
-        title: "ALPINE SERIES 01",
+        title: "ALPINE SCENERIES 01",
         description: "Landscape photography, 2018",
         category: "photography",
         imagePath: "images/photography_2.jpg"
@@ -58,42 +58,42 @@ const artworksData = [
     },
     {
         id: 9,
-        title: "NORTHERN LANDSCAPES 01",
+        title: "NORDIC LANDSCAPES 01",
         description: "Landscape photography, 2018",
         category: "photography",
         imagePath: "images/photography_5.jpg"
     },
     {
         id: 10,
-        title: "NORTHERN LANDSCAPES 02",
+        title: "NORDIC LANDSCAPES 02",
         description: "Landscape photography, 2018",
         category: "photography",
         imagePath: "images/photography_iceland_1.jpg"
     },
     {
         id: 11,
-        title: "NORTHERN LANDSCAPES 03",
+        title: "NORDIC LANDSCAPES 03",
         description: "Landscape photography, 2018",
         category: "photography",
         imagePath: "images/photography_6.jpg"
     },
     {
         id: 12,
-        title: "NORTHERN LANDSCAPES 04",
+        title: "NORDIC LANDSCAPES 04",
         description: "Landscape photography, 2018",
         category: "photography",
         imagePath: "images/photography_iceland_2.jpg"
     },
     {
         id: 13,
-        title: "ALPINE SERIES 02",
+        title: "ALPINE SCENERIES 02",
         description: "Landscape photography, 2018",
         category: "photography",
         imagePath: "images/photography_7.jpg"
     },
     {
         id: 14,
-        title: "ALPINE SERIES 03",
+        title: "ALPINE SCENERIES 03",
         description: "Landscape photography, 2018",
         category: "photography",
         imagePath: "images/photography_8.jpg"
@@ -273,4 +273,39 @@ const artworksData = [
         category: "generative",
         imagePath: "images/generative_cityscape_2.jpg"
     },
+    {
+        id: 40,
+        title: "CHAOTIC CONTOUR 01",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_contour_1.jpg"
+    },
+    {
+        id: 41,
+        title: "CHAOTIC CONTOUR 02",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_contour_2.jpg"
+    },
+    {
+        id: 42,
+        title: "ECHOES OF FORM 03",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_9.jpg"
+    },
+    {
+        id: 43,
+        title: "RETRO POP 01",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_pop_1.jpg"
+    },
+    {
+        id: 44,
+        title: "RETRO POP 02",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_pop_2.jpg"
+    }
 ]; 
