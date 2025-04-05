@@ -244,5 +244,33 @@ const artworksData = [
         description: "GPT-4o, 2025",
         category: "generative",
         imagePath: "images/generative_6.jpg"
-    }
+    },
+    {
+        id: 36,
+        title: "ECHOES OF FORM 01",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_7.jpg"
+    },
+    {
+        id: 37,
+        title: "ECHOES OF FORM 02",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_8.jpg"
+    },
+    {
+        id: 38,
+        title: "RETRO CITYSCAPE 01",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_cityscape_1.jpg"
+    },
+    {
+        id: 39,
+        title: "RETRO CITYSCAPE 02",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_cityscape_2.jpg"
+    },
 ]; 
