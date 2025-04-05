@@ -1,11 +1,36 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize view state variables
+    let isGridView = false;
+    
+    // Check if on mobile device
+    const isMobile = window.innerWidth <= 768;
+    
+    // Set grid view as default for mobile
+    if (isMobile) {
+        isGridView = true;
+    }
+    
     // Shuffle the artworks data on page load
     const shuffledArtworks = shuffleArray([...artworksData]);
     
     // Generate navigation and gallery content from artwork data
     generateCategoryNav();
     generateGallery(shuffledArtworks);
+    
+    // Apply grid view styling after gallery is generated (for mobile)
+    if (isGridView) {
+        const galleryCategories = document.querySelectorAll('.gallery-category');
+        galleryCategories.forEach(category => {
+            category.classList.add('grid-view');
+        });
+        
+        // Update toggle button state if it exists
+        const viewToggle = document.getElementById('viewToggle');
+        if (viewToggle) {
+            viewToggle.classList.add('grid-active');
+        }
+    }
 
     // Fisher-Yates shuffle algorithm to randomize array order
     function shuffleArray(array) {
@@ -104,7 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Handle category switching
         categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (e) => {
+                // Prevent default browser scroll on hash change
+                e.preventDefault();
+                
                 // Remove active class from all buttons
                 categoryButtons.forEach(btn => btn.classList.remove('active'));
                 
@@ -114,8 +142,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Get category to show
                 const categoryToShow = button.getAttribute('data-category');
                 
-                // Update URL hash for bookmarking
-                window.location.hash = categoryToShow;
+                // Update URL hash for bookmarking without scrolling
+                // 1. Save current scroll position
+                const scrollPosition = window.scrollY;
+                
+                // 2. Change the hash without scrolling
+                history.pushState(null, null, '#' + categoryToShow);
+                
+                // 3. Restore scroll position
+                window.scrollTo(0, scrollPosition);
                 
                 // Hide all categories
                 const galleryCategories = document.querySelectorAll('.gallery-category');
@@ -125,6 +160,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Show selected category
                 document.getElementById(categoryToShow).classList.add('active');
+                
+                // Ensure the works section is properly positioned in the viewport
+                const worksSection = document.querySelector('#works');
+                if (worksSection) {
+                    // Calculate proper offset to show works section at top of viewport with some padding
+                    const worksSectionTop = worksSection.getBoundingClientRect().top + window.scrollY;
+                    const headerOffset = 80; // Adjust based on your header height
+                    window.scrollTo({
+                        top: worksSectionTop - headerOffset,
+                        behavior: 'smooth'
+                    });
+                }
                 
                 // Reset IntersectionObserver for the newly visible items
                 setupIntersectionObserver();
@@ -153,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // View Toggle (Scroll/Grid)
     const viewToggle = document.getElementById('viewToggle');
-    let isGridView = false;
     
     if (viewToggle) {
         viewToggle.addEventListener('click', () => {
@@ -171,9 +217,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Add horizontal scroll with mouse wheel
+    // Get scrollable containers for other functions
     const scrollContainers = document.querySelectorAll('.gallery-scroll');
     const worksSection = document.querySelector('#works');
+    
+    // Handle responsive view changes
+    window.addEventListener('resize', () => {
+        const isMobileNow = window.innerWidth <= 768;
+        
+        // Only change view if there's a transition between mobile and desktop
+        if (isMobileNow && !isGridView) {
+            // Switch to grid view on mobile
+            isGridView = true;
+            const viewToggle = document.getElementById('viewToggle');
+            if (viewToggle) {
+                viewToggle.classList.add('grid-active');
+            }
+            
+            // Apply grid view to all gallery categories
+            const galleryCategories = document.querySelectorAll('.gallery-category');
+            galleryCategories.forEach(category => {
+                category.classList.add('grid-view');
+            });
+            
+            // Reset IntersectionObserver for newly arranged items
+            setupIntersectionObserver();
+        }
+    });
     
     scrollContainers.forEach(container => {
         container.addEventListener('wheel', (e) => {
@@ -215,6 +285,12 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollIndicator.classList.add('scroll-indicator');
         scrollIndicator.innerHTML = '→';
         container.parentNode.appendChild(scrollIndicator);
+        
+        // Hide scroll indicator when scrolled to the end or in grid view or on mobile
+        const currentIsMobile = window.innerWidth <= 768;
+        if (isGridView || currentIsMobile) {
+            scrollIndicator.style.opacity = '0';
+        }
         
         // Hide scroll indicator when scrolled to the end
         container.addEventListener('scroll', () => {
@@ -298,6 +374,40 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initial setup of IntersectionObserver
     setupIntersectionObserver();
+    
+    // Handle direct navigation to hash URLs without excessive scrolling
+    window.addEventListener('hashchange', (e) => {
+        // Prevent the default scroll behavior
+        e.preventDefault();
+        
+        // Get category from hash
+        const categoryToShow = window.location.hash.substring(1) || 'all';
+        
+        // Update active category in navigation
+        const categoryButtons = document.querySelectorAll('.category-nav li');
+        categoryButtons.forEach(btn => {
+            if (btn.getAttribute('data-category') === categoryToShow) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        
+        // Hide all categories
+        const galleryCategories = document.querySelectorAll('.gallery-category');
+        galleryCategories.forEach(category => {
+            category.classList.remove('active');
+        });
+        
+        // Show selected category
+        const categoryToActivate = document.getElementById(categoryToShow);
+        if (categoryToActivate) {
+            categoryToActivate.classList.add('active');
+            
+            // Reset IntersectionObserver for the newly visible items
+            setupIntersectionObserver();
+        }
+    });
     
     // Create cursor follower (optional design element)
     const cursor = document.createElement('div');
@@ -470,6 +580,12 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollIndicator.classList.add('scroll-indicator');
             scrollIndicator.innerHTML = '→';
             container.parentNode.appendChild(scrollIndicator);
+            
+            // Hide scroll indicator when scrolled to the end or in grid view or on mobile
+            const currentIsMobile = window.innerWidth <= 768;
+            if (isGridView || currentIsMobile) {
+                scrollIndicator.style.opacity = '0';
+            }
             
             // Hide scroll indicator when scrolled to the end
             container.addEventListener('scroll', () => {
