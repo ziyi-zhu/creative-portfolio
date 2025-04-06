@@ -307,5 +307,19 @@ const artworksData = [
         description: "GPT-4o, 2025",
         category: "generative",
         imagePath: "images/generative_pop_2.jpg"
-    }
+    },
+    {
+        id: 45,
+        title: "ECHOES OF FORM 04",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_form_1.jpg"
+    },
+    {
+        id: 46,
+        title: "ECHOES OF FORM 05",
+        description: "GPT-4o, 2025",
+        category: "generative",
+        imagePath: "images/generative_form_2.jpg"
+    },
 ]; 
