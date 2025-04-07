@@ -322,4 +322,32 @@ const artworksData = [
         category: "generative",
         imagePath: "images/generative_form_2.jpg"
     },
+    {
+        id: 47,
+        title: "FLEETING LIGHT 01",
+        description: "Stable Diffusion XL, 2025",
+        category: "generative",
+        imagePath: "images/generative_polaroid_1.jpg"
+    },
+    {
+        id: 48,
+        title: "FLEETING LIGHT 02",
+        description: "Stable Diffusion XL, 2025",
+        category: "generative",
+        imagePath: "images/generative_polaroid_2.jpg"
+    },
+    {
+        id: 49,
+        title: "FLEETING LIGHT 03",
+        description: "Stable Diffusion XL, 2025",
+        category: "generative",
+        imagePath: "images/generative_polaroid_3.jpg"
+    },
+    {
+        id: 50,
+        title: "FLEETING LIGHT 04",
+        description: "Stable Diffusion XL, 2025",
+        category: "generative",
+        imagePath: "images/generative_polaroid_4.jpg"
+    }
 ]; 
