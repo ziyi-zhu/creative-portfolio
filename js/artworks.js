@@ -349,5 +349,12 @@ const artworksData = [
         description: "Stable Diffusion XL, 2025",
         category: "generative",
         imagePath: "images/generative_polaroid_4.jpg"
-    }
+    },
+    {
+        id: 51,
+        title: "FLEETING LIGHT 05",
+        description: "Stable Diffusion XL, 2025",
+        category: "generative",
+        imagePath: "images/generative_polaroid_5.jpg"
+    },
 ]; 
