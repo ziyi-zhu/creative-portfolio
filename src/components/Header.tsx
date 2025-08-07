@@ -9,7 +9,14 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerHeight = 80; // Account for fixed header
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -19,6 +26,12 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
         <h1 className="text-2xl font-bold tracking-tight">ZIYI ZHU</h1>
         
         <nav className="hidden md:flex items-center space-x-8">
+          <button 
+            onClick={() => scrollToSection('hero')}
+            className="hover:text-red-500 transition-colors"
+          >
+            HOME
+          </button>
           <button 
             onClick={() => scrollToSection('works')}
             className="hover:text-red-500 transition-colors"

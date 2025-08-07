@@ -10,6 +10,7 @@
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: none;
 }
 
 /* Custom scrollbar */
@@ -38,4 +39,44 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Custom Cursor */
+.cursor-follower {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  background-color: #ff2d55;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  z-index: 100000;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+
+.cursor-follower.link-hover {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+}
+
+/* Hide default cursor on interactive elements */
+a, button, [role="button"], .cursor-pointer {
+  cursor: none;
+}
+
+/* Mobile responsive - show default cursor on small screens */
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+  
+  .cursor-follower {
+    display: none;
+  }
+  
+  a, button, [role="button"], .cursor-pointer {
+    cursor: auto;
+  }
 }

@@ -31,8 +31,8 @@ export default function Works() {
     : shuffledArtworks.filter(artwork => artwork.category === activeFilter);
 
   return (
-    <section id="works" className={`min-h-screen py-20 px-6 ${isScrollView ? 'flex items-center' : ''}`}>
-      <div className={`max-w-7xl mx-auto ${isScrollView ? '' : 'h-full flex flex-col justify-start'}`}>
+    <section id="works" className="py-20 px-6">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-12">SELECTED WORKS</h2>
         
         {/* Filter Tabs */}
