@@ -31,18 +31,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const savedTheme = localStorage.getItem('theme');
-                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const shouldBeDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
-                
-                if (shouldBeDark) {
-                  document.documentElement.classList.add('dark');
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const shouldBeDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
+                  
+                  document.documentElement.classList.toggle('dark', shouldBeDark);
+                } catch (e) {
+                  // Fallback for SSR
                 }
               })();
             `,
