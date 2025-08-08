@@ -7,7 +7,9 @@ export default function Contact() {
         <div className="mb-12">
           <a 
             href="mailto:zhu.ziyi@outlook.com"
-            className="text-3xl md:text-4xl hover:text-red-500 transition-colors"
+            className="text-3xl md:text-4xl transition-colors"
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
           >
             zhu.ziyi@outlook.com
           </a>
@@ -18,7 +20,9 @@ export default function Contact() {
             href="https://youtube.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hover:text-red-500 transition-colors"
+            className="transition-colors"
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
           >
             YOUTUBE
           </a>
@@ -26,7 +30,9 @@ export default function Contact() {
             href="https://unsplash.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hover:text-red-500 transition-colors"
+            className="transition-colors"
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
           >
             UNSPLASH
           </a>
@@ -34,7 +40,9 @@ export default function Contact() {
             href="https://linkedin.com" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hover:text-red-500 transition-colors"
+            className="transition-colors"
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
           >
             LINKEDIN
           </a>

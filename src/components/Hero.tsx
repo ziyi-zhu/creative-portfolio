@@ -5,7 +5,7 @@ export default function Hero() {
         <h1 className="text-7xl md:text-9xl lg:text-[10rem] font-bold tracking-tight mb-8">
           CREATIVE PORTFOLIO
         </h1>
-        <p className="text-xl md:text-2xl text-red-500 tracking-wider">
+        <p className="text-xl md:text-2xl tracking-wider" style={{color: 'var(--color-primary)'}}>
           PAINTING / PHOTOGRAPHY / GENERATIVE ART
         </p>
       </div>

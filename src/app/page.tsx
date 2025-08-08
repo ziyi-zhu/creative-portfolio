@@ -28,13 +28,16 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen" style={{
+      backgroundColor: isDark ? 'var(--color-dark-bg)' : 'var(--color-light-bg)',
+      color: isDark ? 'var(--color-dark-text)' : 'var(--color-light-text)'
+    }}>
       <Header isDark={isDark} onToggleTheme={handleToggleTheme} />
       <Hero />
       <Works />
       <About />
       <Contact />
-      <Footer />
+      <Footer isDark={isDark} />
     </div>
   );
 }

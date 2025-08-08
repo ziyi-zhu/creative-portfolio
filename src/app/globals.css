@@ -1,16 +1,31 @@
 @import "tailwindcss";
 
-@theme inline {
+:root {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Color Theme */
+  --color-primary: #FF5722;
+  --color-dark-bg: #181818;
+  --color-light-bg: #F7F7F7;
+  --color-dark-text: #F7F7F7;
+  --color-light-text: #181818;
+  --color-dark-text-secondary: rgba(247, 247, 247, 0.7);
+  --color-light-text-secondary: rgba(24, 24, 24, 0.7);
 }
-
-@custom-variant dark (&:where(.dark, .dark *));
 
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--color-light-bg);
+  color: var(--color-light-text);
   cursor: none;
+}
+
+/* Dark mode styles */
+:root.dark body,
+.dark {
+  background-color: var(--color-dark-bg);
+  color: var(--color-dark-text);
 }
 
 /* Custom scrollbar */
@@ -19,16 +34,24 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-white dark:bg-gray-900;
+  background-color: var(--color-light-bg);
+}
+
+:root.dark ::-webkit-scrollbar-track {
+  background-color: var(--color-dark-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600;
+  background-color: rgba(127, 127, 127, 0.4);
   border-radius: 4px;
 }
 
+:root.dark ::-webkit-scrollbar-thumb {
+  background-color: rgba(127, 127, 127, 0.6);
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500 dark:bg-gray-500;
+  background-color: rgba(127, 127, 127, 0.6);
 }
 
 /* Hide scrollbar utility */
@@ -46,7 +69,7 @@ body {
   position: fixed;
   width: 24px;
   height: 24px;
-  background-color: #ff2d55;
+  background-color: var(--color-primary);
   border-radius: 50%;
   pointer-events: none;
   mix-blend-mode: difference;
@@ -58,25 +81,21 @@ body {
 .cursor-follower.link-hover {
   width: 40px;
   height: 40px;
-  background-color: white;
+  background-color: var(--color-dark-text);
 }
 
-/* Hide default cursor on interactive elements */
-a, button, [role="button"], .cursor-pointer {
-  cursor: none;
+/* Hide default cursor on all elements */
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 /* Mobile responsive - show default cursor on small screens */
 @media (max-width: 768px) {
-  body {
-    cursor: auto;
+  *, *::before, *::after {
+    cursor: auto !important;
   }
   
   .cursor-follower {
     display: none;
-  }
-  
-  a, button, [role="button"], .cursor-pointer {
-    cursor: auto;
   }
 }
