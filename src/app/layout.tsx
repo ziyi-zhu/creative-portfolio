@@ -1,17 +1,19 @@
-import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
-import "./globals.css";
-import CustomCursor from "@/components/CustomCursor";
+import type { Metadata } from 'next';
+import { Space_Grotesk } from 'next/font/google';
+
+import './globals.css';
+import CustomCursor from '@/components/CustomCursor';
 
 const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  variable: '--font-space-grotesk',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
-  title: "Ziyi Zhu - Creative Portfolio",
-  description: "Multidisciplinary artist focused on exploring the intersection of traditional and digital media through photography, mixed media works, and generative art.",
+  title: 'Ziyi Zhu - Creative Portfolio',
+  description:
+    'Multidisciplinary artist focused on exploring the intersection of traditional and digital media through photography, mixed media works, and generative art.',
   icons: {
     icon: [
       { url: '/favicons/favicon.ico' },
@@ -28,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang='en' className='scroll-smooth' suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -48,9 +50,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${spaceGrotesk.variable} antialiased`}
-      >
+      <body className={`${spaceGrotesk.variable} antialiased`}>
         {children}
         <CustomCursor />
       </body>

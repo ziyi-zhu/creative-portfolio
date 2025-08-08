@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --font-sans: var(--font-space-grotesk);
-  
+
   /* Color Theme */
-  --color-primary: #FF5722;
+  --color-primary: #ff5722;
   --color-dark-bg: #181818;
-  --color-light-bg: #F7F7F7;
-  --color-dark-text: #F7F7F7;
+  --color-light-bg: #f7f7f7;
+  --color-dark-text: #f7f7f7;
   --color-light-text: #181818;
   --color-dark-text-secondary: rgba(247, 247, 247, 0.7);
   --color-light-text-secondary: rgba(24, 24, 24, 0.7);
@@ -55,12 +55,12 @@ body {
 
 /* Hide scrollbar utility */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
+  display: none; /* Chrome, Safari and Opera */
 }
 
 /* Custom Cursor */
@@ -74,7 +74,10 @@ body {
   mix-blend-mode: difference;
   z-index: 100000;
   transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .cursor-follower.link-hover {
@@ -84,12 +87,15 @@ body {
 }
 
 /* Hide default cursor on all elements */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   cursor: none !important;
 }
 
 /* GSAP SplitText Character Animation Styles */
-.headline, .subtitle {
+.headline,
+.subtitle {
   font-kerning: none;
 }
 
@@ -118,10 +124,12 @@ body {
 
 /* Mobile responsive - show default cursor on small screens */
 @media (max-width: 768px) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     cursor: auto !important;
   }
-  
+
   .cursor-follower {
     display: none;
   }

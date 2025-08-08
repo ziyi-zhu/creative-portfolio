@@ -12,7 +12,7 @@ export default function CustomCursor() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
@@ -38,7 +38,7 @@ export default function CustomCursor() {
       'a, button, [role="button"], .cursor-pointer, .category-nav li, .toggle-btn, .gallery-item img, [data-cursor="pointer"]'
     );
 
-    interactiveElements.forEach((element) => {
+    interactiveElements.forEach(element => {
       element.addEventListener('mouseenter', handleMouseEnter);
       element.addEventListener('mouseleave', handleMouseLeave);
     });
@@ -47,8 +47,8 @@ export default function CustomCursor() {
     return () => {
       document.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('resize', checkMobile);
-      
-      interactiveElements.forEach((element) => {
+
+      interactiveElements.forEach(element => {
         element.removeEventListener('mouseenter', handleMouseEnter);
         element.removeEventListener('mouseleave', handleMouseLeave);
       });
@@ -68,11 +68,11 @@ export default function CustomCursor() {
         'a, button, [role="button"], .cursor-pointer, .category-nav li, .toggle-btn, .gallery-item img, [data-cursor="pointer"]'
       );
 
-      interactiveElements.forEach((element) => {
+      interactiveElements.forEach(element => {
         // Remove existing listeners to prevent duplicates
         element.removeEventListener('mouseenter', handleMouseEnter);
         element.removeEventListener('mouseleave', handleMouseLeave);
-        
+
         // Add fresh listeners
         element.addEventListener('mouseenter', handleMouseEnter);
         element.addEventListener('mouseleave', handleMouseLeave);

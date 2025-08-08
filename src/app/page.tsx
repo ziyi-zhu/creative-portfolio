@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { initializeTheme, toggleTheme } from '@/lib/theme';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Works from '@/components/Works';
+
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import Hero from '@/components/Hero';
+import Works from '@/components/Works';
+import { initializeTheme, toggleTheme } from '@/lib/theme';
 
 export default function Home() {
   const [isDark, setIsDark] = useState(false);
@@ -28,10 +29,15 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen" style={{
-      backgroundColor: isDark ? 'var(--color-dark-bg)' : 'var(--color-light-bg)',
-      color: isDark ? 'var(--color-dark-text)' : 'var(--color-light-text)'
-    }}>
+    <div
+      className='min-h-screen'
+      style={{
+        backgroundColor: isDark
+          ? 'var(--color-dark-bg)'
+          : 'var(--color-light-bg)',
+        color: isDark ? 'var(--color-dark-text)' : 'var(--color-light-text)',
+      }}
+    >
       <Header isDark={isDark} onToggleTheme={handleToggleTheme} />
       <Hero />
       <Works />

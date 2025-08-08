@@ -1,5 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { createIntersectionAnimation, createTitleAnimation, AnimationOptions } from '@/lib/animations';
+
+import {
+  createIntersectionAnimation,
+  createTitleAnimation,
+  AnimationOptions,
+} from '@/lib/animations';
 
 /**
  * Hook for animating elements when they come into view
@@ -22,9 +27,12 @@ export function useIntersectionAnimation(options?: AnimationOptions) {
       if (cleanupRef.current) {
         cleanupRef.current();
       }
-      
+
       // Create new animation
-      cleanupRef.current = createIntersectionAnimation(elementsRef.current, options);
+      cleanupRef.current = createIntersectionAnimation(
+        elementsRef.current,
+        options
+      );
     }
   };
 
@@ -56,7 +64,7 @@ export function useTitleAnimation(options?: AnimationOptions) {
         if (cleanupRef.current) {
           cleanupRef.current();
         }
-        
+
         // Create new title animation
         cleanupRef.current = createTitleAnimation(titleRef.current, options);
         isAnimatedRef.current = true;

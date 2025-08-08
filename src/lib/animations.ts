@@ -3,6 +3,16 @@ import { SplitText } from 'gsap/SplitText';
 
 gsap.registerPlugin(SplitText);
 
+// Type definitions for GSAP properties
+interface GSAPProperties {
+  opacity?: number;
+  y?: number;
+  scale?: number;
+  filter?: string;
+  duration?: number;
+  ease?: string;
+}
+
 export interface AnimationOptions {
   threshold?: number;
   rootMargin?: string;
@@ -26,7 +36,7 @@ export const defaultAnimationOptions: AnimationOptions = {
   initialY: 30,
   initialScale: 0.95,
   useBlur: false,
-  initialBlur: 0
+  initialBlur: 0,
 };
 
 export const titleAnimationOptions: AnimationOptions = {
@@ -36,10 +46,10 @@ export const titleAnimationOptions: AnimationOptions = {
   ease: 'power2.out',
   stagger: {
     amount: 1.2,
-    from: 'random'
+    from: 'random',
   },
   useBlur: true,
-  initialBlur: 10
+  initialBlur: 10,
 };
 
 /**
@@ -60,23 +70,23 @@ export function createIntersectionAnimation(
     initialY = 30,
     initialScale = 0.95,
     useBlur = false,
-    initialBlur = 10
+    initialBlur = 10,
   } = options;
 
   // Set initial states for elements that haven't been animated
-  elements.forEach((element) => {
+  elements.forEach(element => {
     const isAnimated = element.getAttribute('data-animated') === 'true';
     if (!isAnimated) {
-      const initialProps: any = {
+      const initialProps: GSAPProperties = {
         opacity: 0,
         y: initialY,
-        scale: initialScale
+        scale: initialScale,
       };
-      
+
       if (useBlur) {
         initialProps.filter = `blur(${initialBlur}px)`;
       }
-      
+
       gsap.set(element, initialProps);
     }
   });
@@ -84,11 +94,11 @@ export function createIntersectionAnimation(
   const observerOptions = {
     root: null,
     rootMargin,
-    threshold
+    threshold,
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
       if (entry.isIntersecting && entry.intersectionRatio >= threshold) {
         const element = entry.target as HTMLElement;
         const isAnimated = element.getAttribute('data-animated') === 'true';
@@ -98,18 +108,18 @@ export function createIntersectionAnimation(
           element.setAttribute('data-animated', 'true');
 
           // Animate the element
-          const animationProps: any = {
+          const animationProps: GSAPProperties = {
             opacity: 1,
             y: 0,
             scale: 1,
             duration,
-            ease
+            ease,
           };
-          
+
           if (useBlur) {
             animationProps.filter = 'blur(0px)';
           }
-          
+
           gsap.to(element, animationProps);
         }
 
@@ -120,7 +130,7 @@ export function createIntersectionAnimation(
   }, observerOptions);
 
   // Start observing all elements
-  elements.forEach((element) => {
+  elements.forEach(element => {
     if (element) {
       observer.observe(element);
     }
@@ -147,7 +157,7 @@ export function createTitleAnimation(
     rootMargin = '-10% 0px -10% 0px',
     duration = 1.5,
     ease = 'power2.out',
-    stagger = { amount: 1.2, from: 'random' }
+    stagger = { amount: 1.2, from: 'random' },
   } = options;
 
   // Check if already animated to prevent re-animation
@@ -161,7 +171,7 @@ export function createTitleAnimation(
   // Split the text into characters
   const splitText = new SplitText(element, {
     type: 'chars, words',
-    charsClass: 'char'
+    charsClass: 'char',
   });
 
   const chars = splitText.chars;
@@ -172,14 +182,18 @@ export function createTitleAnimation(
   const observerOptions = {
     root: null,
     rootMargin,
-    threshold
+    threshold,
   };
 
   let isCleanedUp = false;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && entry.intersectionRatio >= threshold && !isCleanedUp) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (
+        entry.isIntersecting &&
+        entry.intersectionRatio >= threshold &&
+        !isCleanedUp
+      ) {
         const isAnimated = element.getAttribute('data-animated') === 'true';
 
         if (!isAnimated) {
@@ -194,8 +208,13 @@ export function createTitleAnimation(
             ease,
             stagger: {
               amount: stagger.amount,
-              from: stagger.from as any
-            }
+              from: stagger.from as
+                | 'random'
+                | 'start'
+                | 'center'
+                | 'end'
+                | 'edges',
+            },
           });
         }
 
