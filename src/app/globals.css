@@ -89,6 +89,34 @@ body {
   cursor: none !important;
 }
 
+/* GSAP SplitText Character Animation Styles */
+.headline, .subtitle {
+  font-kerning: none;
+}
+
+.char {
+  display: inline-block;
+  position: relative;
+}
+
+/* Works Gallery Grid Layout Fixes */
+.works-grid {
+  column-fill: balance;
+}
+
+.works-grid .group {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
+/* Ensure images don't break across columns */
+.works-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* Mobile responsive - show default cursor on small screens */
 @media (max-width: 768px) {
   *, *::before, *::after {
