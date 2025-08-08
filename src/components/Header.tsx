@@ -29,7 +29,16 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
       }}
     >
       <div className="max-w-7xl mx-auto py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold tracking-tight">ZIYI ZHU</h1>
+        <h1 className="text-2xl font-bold tracking-tight">
+          <a 
+            href="https://ziyizhu.com" 
+            className="transition-colors hover:opacity-80"
+            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-primary)'}
+            onMouseLeave={(e) => e.currentTarget.style.color = ''}
+          >
+            ZIYI ZHU
+          </a>
+        </h1>
         
         <nav className="hidden md:flex items-center space-x-8">
           <button 

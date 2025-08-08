@@ -1,8 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk);
   
   /* Color Theme */
   --color-primary: #FF5722;
@@ -15,7 +14,7 @@
 }
 
 body {
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   background-color: var(--color-light-bg);
   color: var(--color-light-text);
   cursor: none;

@@ -1,8 +1,20 @@
+'use client';
+
+import { useTitleAnimation } from '@/hooks/useAnimations';
+
 export default function Contact() {
+  const titleRef = useTitleAnimation();
+
   return (
-    <section id="contact" className="py-20 px-6">
+    <section id="contact" className="py-20 px-6 mb-20">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-12">CONTACT</h2>
+        <h2 
+          ref={titleRef}
+          className="text-5xl md:text-6xl font-bold tracking-tight mb-12"
+          style={{ opacity: 0 }}
+        >
+          CONTACT
+        </h2>
         
         <div className="mb-12">
           <a 
@@ -17,7 +29,7 @@ export default function Contact() {
 
         <div className="flex space-x-8 text-xl">
           <a 
-            href="https://youtube.com" 
+            href="https://www.youtube.com/@neoziyism" 
             target="_blank" 
             rel="noopener noreferrer"
             className="transition-colors"
@@ -27,7 +39,7 @@ export default function Contact() {
             YOUTUBE
           </a>
           <a 
-            href="https://unsplash.com" 
+            href="https://unsplash.com/@ziyizhu" 
             target="_blank" 
             rel="noopener noreferrer"
             className="transition-colors"
@@ -37,7 +49,7 @@ export default function Contact() {
             UNSPLASH
           </a>
           <a 
-            href="https://linkedin.com" 
+            href="https://www.linkedin.com/in/ziyizhu/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="transition-colors"
