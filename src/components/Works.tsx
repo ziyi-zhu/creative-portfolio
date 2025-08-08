@@ -11,6 +11,8 @@ import {
   useTitleAnimation,
 } from '@/hooks/useAnimations';
 
+import Arrow from './Arrow';
+import Cross from './Cross';
 import Toggle from './Toggle';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -241,35 +243,23 @@ export default function Works() {
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1); // -1 for rounding
   }, [isScrollView]);
 
-  // Arrow Component
-  const ScrollArrow = ({ direction }: { direction: 'left' | 'right' }) => {
-    const arrowRef = useRef<HTMLDivElement>(null);
+  // Scroll handlers for gallery arrows
+  const scrollLeft = () => {
+    if (galleryRef.current) {
+      galleryRef.current.scrollBy({
+        left: -300,
+        behavior: 'smooth',
+      });
+    }
+  };
 
-    useEffect(() => {
-      if (arrowRef.current) {
-        // Initial animation setup
-        gsap.set(arrowRef.current, { scale: 1 });
-
-        // Create floating animation
-        gsap.to(arrowRef.current, {
-          x: direction === 'left' ? -8 : 8,
-          duration: 1.5,
-          ease: 'power2.inOut',
-          yoyo: true,
-          repeat: -1,
-        });
-      }
-    }, [direction]);
-
-    return (
-      <div
-        ref={arrowRef}
-        className='flex items-center justify-center w-8 h-8 text-2xl'
-        style={{ color: 'var(--color-primary)' }}
-      >
-        {direction === 'left' ? '←' : '→'}
-      </div>
-    );
+  const scrollRight = () => {
+    if (galleryRef.current) {
+      galleryRef.current.scrollBy({
+        left: 300,
+        behavior: 'smooth',
+      });
+    }
   };
 
   // Monitor scroll changes and check capabilities
@@ -354,10 +344,10 @@ export default function Works() {
 
         {/* Filter Tabs */}
         <div className='flex flex-wrap items-center justify-between mb-12'>
-          <div className='flex flex-wrap gap-8'>
+          <div className='flex flex-wrap gap-8 text-xl'>
             <button
               onClick={() => setActiveFilter('generative')}
-              className={`text-lg tracking-wide transition-colors border-b-2 ${
+              className={`tracking-wide transition-colors border-b-2 ${
                 activeFilter === 'generative'
                   ? 'border-transparent'
                   : 'border-transparent hover:opacity-70'
@@ -366,7 +356,7 @@ export default function Works() {
                 color:
                   activeFilter === 'generative'
                     ? ''
-                    : 'rgba(127, 127, 127, 0.7)',
+                    : 'var(--color-text-muted)',
                 borderBottomColor:
                   activeFilter === 'generative'
                     ? 'var(--color-primary)'
@@ -377,7 +367,7 @@ export default function Works() {
             </button>
             <button
               onClick={() => setActiveFilter('photography')}
-              className={`text-lg tracking-wide transition-colors border-b-2 ${
+              className={`tracking-wide transition-colors border-b-2 ${
                 activeFilter === 'photography'
                   ? 'border-transparent'
                   : 'border-transparent hover:opacity-70'
@@ -386,7 +376,7 @@ export default function Works() {
                 color:
                   activeFilter === 'photography'
                     ? ''
-                    : 'rgba(127, 127, 127, 0.7)',
+                    : 'var(--color-text-muted)',
                 borderBottomColor:
                   activeFilter === 'photography'
                     ? 'var(--color-primary)'
@@ -397,14 +387,14 @@ export default function Works() {
             </button>
             <button
               onClick={() => setActiveFilter('painting')}
-              className={`text-lg tracking-wide transition-colors border-b-2 ${
+              className={`tracking-wide transition-colors border-b-2 ${
                 activeFilter === 'painting'
                   ? 'border-transparent'
                   : 'border-transparent hover:opacity-70'
               }`}
               style={{
                 color:
-                  activeFilter === 'painting' ? '' : 'rgba(127, 127, 127, 0.7)',
+                  activeFilter === 'painting' ? '' : 'var(--color-text-muted)',
                 borderBottomColor:
                   activeFilter === 'painting'
                     ? 'var(--color-primary)'
@@ -415,13 +405,13 @@ export default function Works() {
             </button>
             <button
               onClick={() => setActiveFilter('all')}
-              className={`text-lg tracking-wide transition-colors border-b-2 ${
+              className={`tracking-wide transition-colors border-b-2 ${
                 activeFilter === 'all'
                   ? 'border-transparent'
                   : 'border-transparent hover:opacity-70'
               }`}
               style={{
-                color: activeFilter === 'all' ? '' : 'rgba(127, 127, 127, 0.7)',
+                color: activeFilter === 'all' ? '' : 'var(--color-text-muted)',
                 borderBottomColor:
                   activeFilter === 'all'
                     ? 'var(--color-primary)'
@@ -465,7 +455,12 @@ export default function Works() {
               }}
             >
               <div
-                className={`relative overflow-hidden bg-gray-100 dark:bg-gray-800 cursor-pointer ${isScrollView ? 'h-96' : 'w-full'}`}
+                className={`relative overflow-hidden cursor-pointer ${isScrollView ? 'h-96' : 'w-full'}`}
+                style={{
+                  backgroundColor: isDarkMode
+                    ? 'var(--color-dark-bg)'
+                    : 'var(--color-light-bg)',
+                }}
                 onClick={() => openFullscreen(artwork)}
               >
                 <Image
@@ -482,10 +477,13 @@ export default function Works() {
                 />
               </div>
               <div className='mt-4'>
-                <h3 className='text-lg font-bold tracking-tight'>
+                <h3 className='text-xl font-bold tracking-tight'>
                   {artwork.title}
                 </h3>
-                <p className='text-sm text-gray-600 dark:text-gray-400 mt-1'>
+                <p
+                  className='text-lg mt-1'
+                  style={{ color: 'var(--color-text-muted)' }}
+                >
                   {artwork.description}
                 </p>
               </div>
@@ -498,16 +496,16 @@ export default function Works() {
           <div className='flex justify-between items-center w-full mt-8'>
             <div className='flex justify-start'>
               {canScrollLeft ? (
-                <ScrollArrow direction='left' />
+                <Arrow direction='left' size={48} onClick={scrollLeft} />
               ) : (
-                <div className='w-8 h-8'></div>
+                <div className='w-12 h-12'></div>
               )}
             </div>
             <div className='flex justify-end'>
               {canScrollRight ? (
-                <ScrollArrow direction='right' />
+                <Arrow direction='right' size={48} onClick={scrollRight} />
               ) : (
-                <div className='w-8 h-8'></div>
+                <div className='w-12 h-12'></div>
               )}
             </div>
           </div>
@@ -526,22 +524,19 @@ export default function Works() {
           }}
           style={{
             backgroundColor: isDarkMode
-              ? 'rgba(24, 24, 24, 0.9)'
-              : 'rgba(247, 247, 247, 0.9)',
+              ? 'var(--color-overlay-dark)'
+              : 'var(--color-overlay-light)',
             opacity: 0,
           }}
         >
           {/* Close Button */}
-          <button
-            onClick={closeFullscreen}
-            className='absolute top-5 right-5 text-2xl z-[10001] hover:opacity-70 transition-opacity duration-200'
-            style={{
-              cursor: 'none',
-              color: isDarkMode ? '#F7F7F7' : '#181818',
-            }}
-          >
-            ×
-          </button>
+          <div className='absolute top-5 right-5 z-[10001]'>
+            <Cross
+              size={48}
+              onClick={closeFullscreen}
+              className='text-current'
+            />
+          </div>
 
           {/* Fullscreen Image */}
           <div
@@ -570,13 +565,21 @@ export default function Works() {
           >
             <h3
               className='text-2xl font-bold mb-2'
-              style={{ color: isDarkMode ? '#F7F7F7' : '#181818' }}
+              style={{
+                color: isDarkMode
+                  ? 'var(--color-dark-text)'
+                  : 'var(--color-light-text)',
+              }}
             >
               {fullscreenImage.title}
             </h3>
             <p
-              className='opacity-70'
-              style={{ color: isDarkMode ? '#F7F7F7' : '#181818' }}
+              className='text-xl opacity-70'
+              style={{
+                color: isDarkMode
+                  ? 'var(--color-dark-text)'
+                  : 'var(--color-light-text)',
+              }}
             >
               {fullscreenImage.description}
             </p>

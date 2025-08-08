@@ -26,15 +26,15 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
       className='fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b px-6'
       style={{
         backgroundColor: isDark
-          ? 'rgba(24, 24, 24, 0.8)'
-          : 'rgba(247, 247, 247, 0.8)',
+          ? 'var(--color-dark-bg)'
+          : 'var(--color-light-bg)',
         borderBottomColor: isDark
-          ? 'rgba(247, 247, 247, 0.2)'
-          : 'rgba(24, 24, 24, 0.2)',
+          ? 'var(--color-dark-text)'
+          : 'var(--color-light-text)',
       }}
     >
       <div className='max-w-7xl mx-auto py-4 flex justify-between items-center'>
-        <h1 className='text-2xl font-bold tracking-tight'>
+        <h1 className='text-3xl font-bold tracking-tight'>
           <a
             href='https://ziyizhu.com'
             className='transition-colors hover:opacity-80'
@@ -47,7 +47,7 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
           </a>
         </h1>
 
-        <nav className='hidden md:flex items-center space-x-8'>
+        <nav className='hidden md:flex items-center space-x-8 text-xl'>
           <button
             onClick={() => scrollToSection('hero')}
             className='transition-colors hover:opacity-80'
