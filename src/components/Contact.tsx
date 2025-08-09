@@ -6,12 +6,12 @@ export default function Contact() {
   const titleRef = useTitleAnimation();
 
   return (
-    <section id='contact' className='py-20 px-6 mb-20'>
+    <section id='contact' className='py-20 px-6'>
       <div className='max-w-7xl mx-auto'>
         <h2
           ref={titleRef}
           className='text-5xl md:text-6xl font-bold tracking-tight mb-12'
-          style={{ opacity: 0 }}
+          style={{ opacity: 1 }}
         >
           CONTACT
         </h2>
@@ -29,7 +29,7 @@ export default function Contact() {
           </a>
         </div>
 
-        <div className='flex space-x-8 text-xl'>
+        <div className='flex space-x-8 text-xl mb-20'>
           <a
             href='https://www.youtube.com/@neoziyism'
             target='_blank'

@@ -337,7 +337,7 @@ export default function Works() {
         <h2
           ref={titleRef}
           className='text-4xl md:text-5xl font-bold tracking-tight mb-12'
-          style={{ opacity: 0 }}
+          style={{ opacity: 1 }}
         >
           SELECTED WORKS
         </h2>
@@ -432,85 +432,134 @@ export default function Works() {
           </div>
         </div>
 
-        {/* Gallery */}
-        <div
-          ref={galleryRef}
-          className={
-            isScrollView
-              ? 'flex gap-6 overflow-x-auto pb-4 scrollbar-hide'
-              : 'works-grid columns-1 md:columns-2 lg:columns-3 gap-6'
-          }
-        >
-          {filteredArtworks.map((artwork, index) => (
-            <div
-              key={`${artwork.id}-${activeFilter}-${isScrollView ? 'scroll' : 'grid'}`}
-              ref={el => {
-                artworkRefs.current[index] = el;
-              }}
-              className={`group ${isScrollView ? 'flex-shrink-0' : 'break-inside-avoid mb-6'}`}
-              data-animated='false'
-              style={{
-                opacity: 0,
-                transform: `translateY(${isScrollView ? '20px' : '30px'}) scale(0.95)`,
-              }}
-            >
+        {/* Gallery - Grid View */}
+        {!isScrollView && (
+          <div
+            ref={galleryRef}
+            className='works-grid columns-1 md:columns-2 lg:columns-3 gap-6'
+          >
+            {filteredArtworks.map((artwork, index) => (
               <div
-                className={`relative overflow-hidden cursor-pointer ${isScrollView ? 'h-96' : 'w-full'}`}
-                style={{
-                  backgroundColor: isDarkMode
-                    ? 'var(--color-dark-bg)'
-                    : 'var(--color-light-bg)',
+                key={`${artwork.id}-${activeFilter}-${isScrollView ? 'scroll' : 'grid'}`}
+                ref={el => {
+                  artworkRefs.current[index] = el;
                 }}
-                onClick={() => openFullscreen(artwork)}
+                className='group break-inside-avoid mb-6'
+                data-animated='false'
+                style={{
+                  opacity: 0,
+                  transform: `translateY(${isScrollView ? '20px' : '30px'}) scale(0.95)`,
+                }}
               >
-                <Image
-                  src={artwork.imagePath}
-                  alt={artwork.title}
-                  width={0}
-                  height={0}
-                  className={`group-hover:scale-105 transition-transform duration-500 ${isScrollView ? 'h-full w-auto object-cover' : 'w-full h-auto object-cover'}`}
-                  sizes={
-                    isScrollView
-                      ? '(max-width: 768px) 80vw, 320px'
-                      : '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                  }
-                />
-              </div>
-              <div className='mt-4'>
-                <h3 className='text-xl font-bold tracking-tight'>
-                  {artwork.title}
-                </h3>
-                <p
-                  className='text-lg mt-1'
-                  style={{ color: 'var(--color-text-muted)' }}
+                <div
+                  className='relative overflow-hidden cursor-pointer w-full'
+                  style={{
+                    backgroundColor: isDarkMode
+                      ? 'var(--color-dark-bg)'
+                      : 'var(--color-light-bg)',
+                  }}
+                  onClick={() => openFullscreen(artwork)}
                 >
-                  {artwork.description}
-                </p>
+                  <Image
+                    src={artwork.imagePath}
+                    alt={artwork.title}
+                    width={0}
+                    height={0}
+                    className='group-hover:scale-105 transition-transform duration-500 w-full h-auto object-cover'
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                  />
+                </div>
+                <div className='mt-4'>
+                  <h3 className='text-xl font-bold tracking-tight'>
+                    {artwork.title}
+                  </h3>
+                  <p
+                    className='text-lg mt-1'
+                    style={{ color: 'var(--color-text-muted)' }}
+                  >
+                    {artwork.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Scroll Indicators */}
-        {isScrollView && (canScrollLeft || canScrollRight) && (
-          <div className='flex justify-between items-center w-full mt-8'>
-            <div className='flex justify-start'>
-              {canScrollLeft ? (
-                <Arrow direction='left' size={48} onClick={scrollLeft} />
-              ) : (
-                <div className='w-12 h-12'></div>
-              )}
-            </div>
-            <div className='flex justify-end'>
-              {canScrollRight ? (
-                <Arrow direction='right' size={48} onClick={scrollRight} />
-              ) : (
-                <div className='w-12 h-12'></div>
-              )}
-            </div>
+            ))}
           </div>
         )}
       </div>
+
+      {/* Gallery - Scroll View (Full Width) */}
+      {isScrollView && (
+        <div className='-mx-6'>
+          <div
+            ref={galleryRef}
+            className='flex gap-6 overflow-x-auto pb-4 scrollbar-hide px-6'
+          >
+            {filteredArtworks.map((artwork, index) => (
+              <div
+                key={`${artwork.id}-${activeFilter}-${isScrollView ? 'scroll' : 'grid'}`}
+                ref={el => {
+                  artworkRefs.current[index] = el;
+                }}
+                className='group flex-shrink-0'
+                data-animated='false'
+                style={{
+                  opacity: 0,
+                  transform: `translateY(${isScrollView ? '20px' : '30px'}) scale(0.95)`,
+                }}
+              >
+                <div
+                  className='relative overflow-hidden cursor-pointer h-96'
+                  style={{
+                    backgroundColor: isDarkMode
+                      ? 'var(--color-dark-bg)'
+                      : 'var(--color-light-bg)',
+                  }}
+                  onClick={() => openFullscreen(artwork)}
+                >
+                  <Image
+                    src={artwork.imagePath}
+                    alt={artwork.title}
+                    width={0}
+                    height={0}
+                    className='group-hover:scale-105 transition-transform duration-500 h-full w-auto object-cover'
+                    sizes='(max-width: 768px) 80vw, 320px'
+                  />
+                </div>
+                <div className='mt-4'>
+                  <h3 className='text-xl font-bold tracking-tight'>
+                    {artwork.title}
+                  </h3>
+                  <p
+                    className='text-lg mt-1'
+                    style={{ color: 'var(--color-text-muted)' }}
+                  >
+                    {artwork.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Scroll Indicators */}
+          {(canScrollLeft || canScrollRight) && (
+            <div className='flex justify-between items-center w-full mt-8 max-w-7xl mx-auto'>
+              <div className='flex justify-start'>
+                {canScrollLeft ? (
+                  <Arrow direction='left' size={48} onClick={scrollLeft} />
+                ) : (
+                  <div className='w-12 h-12'></div>
+                )}
+              </div>
+              <div className='flex justify-end'>
+                {canScrollRight ? (
+                  <Arrow direction='right' size={48} onClick={scrollRight} />
+                ) : (
+                  <div className='w-12 h-12'></div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Fullscreen Image Overlay */}
       {fullscreenImage && (

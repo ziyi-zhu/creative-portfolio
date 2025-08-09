@@ -1,7 +1,8 @@
 import { gsap } from 'gsap';
+import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { SplitText } from 'gsap/SplitText';
 
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(SplitText, ScrambleTextPlugin);
 
 // Type definitions for GSAP properties
 interface GSAPProperties {
@@ -24,8 +25,12 @@ export interface AnimationOptions {
   };
   initialY?: number;
   initialScale?: number;
-  useBlur?: boolean;
-  initialBlur?: number;
+  useTextScramble?: boolean;
+  scrambleOptions?: {
+    chars?: string;
+    revealDelay?: number;
+    speed?: number;
+  };
 }
 
 export const defaultAnimationOptions: AnimationOptions = {
@@ -35,21 +40,20 @@ export const defaultAnimationOptions: AnimationOptions = {
   ease: 'power2.out',
   initialY: 30,
   initialScale: 0.95,
-  useBlur: false,
-  initialBlur: 0,
+  useTextScramble: false,
 };
 
 export const titleAnimationOptions: AnimationOptions = {
-  threshold: 0.2,
+  threshold: 0.0,
   rootMargin: '-10% 0px -10% 0px',
-  duration: 1.5,
+  duration: 2,
   ease: 'power2.out',
-  stagger: {
-    amount: 1.2,
-    from: 'random',
+  useTextScramble: true,
+  scrambleOptions: {
+    chars: 'upperCase',
+    revealDelay: 0,
+    speed: 0.5,
   },
-  useBlur: true,
-  initialBlur: 10,
 };
 
 /**
@@ -69,8 +73,8 @@ export function createIntersectionAnimation(
     ease = 'power2.out',
     initialY = 30,
     initialScale = 0.95,
-    useBlur = false,
-    initialBlur = 10,
+    useTextScramble = false,
+    scrambleOptions = { chars: 'upperCase', revealDelay: 0, speed: 1 },
   } = options;
 
   // Set initial states for elements that haven't been animated
@@ -78,16 +82,21 @@ export function createIntersectionAnimation(
     const isAnimated = element.getAttribute('data-animated') === 'true';
     if (!isAnimated) {
       const initialProps: GSAPProperties = {
-        opacity: 0,
+        opacity: useTextScramble ? 1 : 0,
         y: initialY,
         scale: initialScale,
       };
 
-      if (useBlur) {
-        initialProps.filter = `blur(${initialBlur}px)`;
-      }
-
       gsap.set(element, initialProps);
+
+      // For text scramble, store original text and clear element
+      if (useTextScramble) {
+        const originalText = element.textContent || '';
+        element.setAttribute('data-original-text', originalText);
+        element.textContent = '-'; // Start empty for scramble effect
+
+        gsap.set(element, initialProps);
+      }
     }
   });
 
@@ -107,20 +116,47 @@ export function createIntersectionAnimation(
           // Mark as animated to prevent re-animation
           element.setAttribute('data-animated', 'true');
 
-          // Animate the element
-          const animationProps: GSAPProperties = {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration,
-            ease,
-          };
+          if (useTextScramble) {
+            // Use TextScramble animation
+            const originalText =
+              element.getAttribute('data-original-text') || '';
 
-          if (useBlur) {
-            animationProps.filter = 'blur(0px)';
+            // Create timeline for combined animations
+            const tl = gsap.timeline();
+
+            // Animate position and scale
+            tl.to(element, {
+              duration: 0.5,
+              ease,
+              y: 0,
+              scale: 1,
+            })
+              // Then animate text scramble
+              .to(
+                element,
+                {
+                  duration,
+                  scrambleText: {
+                    text: originalText,
+                    chars: scrambleOptions.chars,
+                    revealDelay: scrambleOptions.revealDelay,
+                    speed: scrambleOptions.speed,
+                  },
+                },
+                '-=0.2'
+              );
+          } else {
+            // Standard animation
+            const animationProps: GSAPProperties = {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration,
+              ease,
+            };
+
+            gsap.to(element, animationProps);
           }
-
-          gsap.to(element, animationProps);
         }
 
         // Stop observing this element once it's been processed
@@ -143,7 +179,7 @@ export function createIntersectionAnimation(
 }
 
 /**
- * Creates an intersection observer that animates title text with character stagger
+ * Creates an intersection observer that animates title text with TextScramble
  * @param element - The title element to animate
  * @param options - Animation options
  * @returns Cleanup function
@@ -155,9 +191,9 @@ export function createTitleAnimation(
   const {
     threshold = 0.2,
     rootMargin = '-10% 0px -10% 0px',
-    duration = 1.5,
+    duration = 2,
     ease = 'power2.out',
-    stagger = { amount: 1.2, from: 'random' },
+    scrambleOptions = { chars: 'upperCase', revealDelay: 0, speed: 0.5 },
   } = options;
 
   // Check if already animated to prevent re-animation
@@ -165,19 +201,13 @@ export function createTitleAnimation(
     return () => {}; // Return empty cleanup if already animated
   }
 
+  // Store original text and start empty for scramble effect
+  const originalText = element.textContent || '';
+  element.setAttribute('data-original-text', originalText);
+  element.textContent = '-'; // Start empty
+
   // Set initial opacity
   gsap.set(element, { opacity: 1 });
-
-  // Split the text into characters
-  const splitText = new SplitText(element, {
-    type: 'chars, words',
-    charsClass: 'char',
-  });
-
-  const chars = splitText.chars;
-
-  // Set initial state for characters with blur
-  gsap.set(chars, { filter: 'blur(10px)', opacity: 0 });
 
   const observerOptions = {
     root: null,
@@ -200,20 +230,15 @@ export function createTitleAnimation(
           // Mark as animated to prevent re-animation
           element.setAttribute('data-animated', 'true');
 
-          // Animate characters with stagger - blur in effect
-          gsap.to(chars, {
+          // Animate with TextScramble
+          gsap.to(element, {
             duration,
-            opacity: 1,
-            filter: 'blur(0px)',
             ease,
-            stagger: {
-              amount: stagger.amount,
-              from: stagger.from as
-                | 'random'
-                | 'start'
-                | 'center'
-                | 'end'
-                | 'edges',
+            scrambleText: {
+              text: originalText,
+              chars: scrambleOptions.chars,
+              revealDelay: scrambleOptions.revealDelay,
+              speed: scrambleOptions.speed,
             },
           });
         }
@@ -231,8 +256,5 @@ export function createTitleAnimation(
   return () => {
     isCleanedUp = true;
     observer.disconnect();
-    if (!element.getAttribute('data-animated')) {
-      splitText.revert();
-    }
   };
 }

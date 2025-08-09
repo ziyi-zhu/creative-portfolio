@@ -11,7 +11,7 @@ export default function About() {
         <h2
           ref={titleRef}
           className='text-5xl md:text-6xl font-bold tracking-tight mb-12'
-          style={{ opacity: 0 }}
+          style={{ opacity: 1 }}
         >
           ABOUT
         </h2>
